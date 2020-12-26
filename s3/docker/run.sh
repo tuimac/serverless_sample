@@ -10,9 +10,9 @@ IMAGE=${DOCKERHUBUSER}/${NAME}
 
 function runContainer(){
     docker run -itd --name ${NAME} \
-                -h ${NAME} \
-                -p 4200:4200 \
-                ${NAME}
+            -h ${NAME} \
+            -p 4200:4200 \
+            ${NAME}
 }
 
 function cleanup(){
