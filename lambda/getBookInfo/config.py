@@ -1,0 +1,6 @@
+DB_USER = 'shop'
+DB_PASSWORD = 'password'
+DB_NAME = 'Shop'
+DB_HOST = 'mysql'
+DB_PORT = '3306'
+ORIGIN = '*'
