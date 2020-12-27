@@ -3,15 +3,24 @@
 import os
 import subprocess
 
-def changeDir(execDir):
-    srcdir = os.path.dirname(os.path.realpath(__file__)) + '/' + execDir
-    os.chdir(srcdir)
-
 def executeHandler():
-    command = 'docker run --rm -v ' + os.getcwd() + ':/var/task:ro,delegated lambci/lambda:python3.8 lambda_function.lambda_handler'
+    os.chdir('src')
+    command = ['docker', 'run', '--rm', '-v', os.getcwd() + ':/var/task:ro,delegated', '--network', 'database_default', 'lambci/lambda:python3.8', 'lambda_function.lambda_handler']
     subprocess.run(command)
+    os.chdir('..')
+
+def database(handler):
+    os.chdir('database')
+    if handler == 'start':
+        command = ['docker-compose', 'up', '-d']
+    elif handler == 'stop':
+        command = ['docker-compose', 'stop']
+    else:
+        print('There is no handler like that.', file=sys.stderr)
+    subprocess.run(command)
+    os.chdir('..')
 
 if __name__ == '__main__':
-    changeDir('src')
+    database('start')
     executeHandler()
-    changeDir('')
+    database('stop')
