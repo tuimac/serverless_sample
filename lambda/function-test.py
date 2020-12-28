@@ -4,6 +4,7 @@ import os
 import subprocess
 import traceback
 import sys
+import time
 
 def executeHandler(functionDir):
     os.chdir(functionDir)
@@ -31,6 +32,7 @@ if __name__ == '__main__':
             print('usage: ./function-test.py <function directory>\n', file=sys.stderr)
             raise FileNotFoundError
         database('start')
+        time.sleep(5)
         executeHandler(sys.argv[1])
         database('stop')
     except:
