@@ -20,7 +20,6 @@ import { AppRoutingModule } from './app-routing.module';
     AppRoutingModule,
     BookModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
