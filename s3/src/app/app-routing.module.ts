@@ -11,7 +11,7 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
-    path: 'book',
+    path: 'book/:id',
     component: BookComponent
   }
 ];

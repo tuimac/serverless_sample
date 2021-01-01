@@ -7,11 +7,13 @@ import { InputsModule } from '@progress/kendo-angular-inputs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BookComponent } from './book/book.component';
 import { AppRoutingModule } from './app-routing.module';
+import { BookSearchComponent } from './book-search/book-search.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BookComponent
+    BookComponent,
+    BookSearchComponent
   ],
   imports: [
     BrowserModule,

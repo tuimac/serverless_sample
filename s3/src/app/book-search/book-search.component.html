@@ -1,0 +1,18 @@
+<label>
+  Book Name:
+  <input
+    type="text"
+    placeholder="Enter book name..."
+    (input)="bookSearch($event.target.value)"
+  >
+  <ng-container>
+    <p>Search Result</p>>
+    <ul>
+      <li *ngFor="let book of bookList$">
+        {{book.id}}
+        {{book.name}}
+        {{book.pages}}
+      </li>
+    </ul>>
+  </ng-contašner>
+</label>

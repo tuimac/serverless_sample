@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CoreEnvironment } from '@angular/compiler/src/compiler_facade_interface';
-import { Book } from './book';
+import { Book } from '../book/book';
 import { Observable, throwError } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 @Injectable({
   providedIn: 'root'
 })
-export class BookService {
+export class BookSearchService {
 
   private baseurl: string = environment.baseUrl;
   private headers = {
@@ -21,7 +21,7 @@ export class BookService {
   constructor(private http: HttpClient) { }
 
   searchBook(bookname: string): Observable<Book[]>{
-    return this.http.get(
+    return this.http.get<Book[]>(
       `${this.baseurl}/?name=${bookname}`
     ).pipe(
       tap((data: Book[]) => {
@@ -33,5 +33,4 @@ export class BookService {
       })
     );
   }
-
 }
