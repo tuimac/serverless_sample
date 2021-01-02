@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { BookModule } from './book/book.module';
 
 import { AppComponent } from './app.component';
 import { InputsModule } from '@progress/kendo-angular-inputs';
@@ -19,8 +18,7 @@ import { BookSearchComponent } from './book-search/book-search.component';
     BrowserModule,
     InputsModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
-    BookModule
+    AppRoutingModule
   ],
   bootstrap: [AppComponent]
 })

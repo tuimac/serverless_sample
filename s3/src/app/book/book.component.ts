@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'book-component',
@@ -8,14 +7,8 @@ import { Location } from '@angular/common';
 })
 export class BookComponent implements OnInit {
 
-  constructor(
-    private location: Location
-  ) { }
+  constructor() { }
 
   ngOnInit(): void {
-  }
-
-  goBack(): void {
-    this.location.back();
   }
 }
