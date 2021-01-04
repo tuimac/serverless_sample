@@ -1,7 +1,7 @@
 <label>
   Book Name:
   <div>
-    <form [formGroup] = "book" (ngSubmit) = "onClickSubmit(book.value)">
+    <form [formGroup] = "book" (ngSubmit) = "searchBooks(book.value)">
       <input type = "text" name = "bookname" placeholder = "Enter Book name...">
       <button class="button" type="submit">Search</button>
     </form>

@@ -19,7 +19,7 @@ export class BookSearchService {
 
   constructor(private http: HttpClient) { }
 
-  searchBook(bookname: string): Observable<Book[]>{
+  searchBooks(bookname: string): Observable<Book[]>{
     return this.http.get<Book[]>(
       `${this.baseurl}/?name=${bookname}`
     ).pipe(
