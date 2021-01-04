@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { Book } from '../book';
 
