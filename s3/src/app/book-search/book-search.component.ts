@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { Book } from '../book';
 
@@ -14,20 +14,21 @@ import { BookSearchService } from './book-search.service';
 })
 export class BookSearchComponent {
   books: any;
-  bookgroup: any;
+  searchBooksForm: any;
+  readonly bookList$;
 
   constructor(
     private bookSearchService: BookSearchService,
     private formBuilder: FormBuilder
   ) {
-    this.bookgroup = this.formBuilder.group({
+    this.searchBooksForm = this.formBuilder.group({
       bookName: ''
     });
   }
 
   ngOnInit() { }
 
-  searchBooks(bookName: string) {
+  searchBooks(bookName) {
     console.log(bookName);
     this.books = this.bookSearchService.searchBooks(bookName);
     console.log(this.books);
