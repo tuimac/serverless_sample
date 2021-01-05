@@ -1,9 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Subject } from 'rxjs';
 import { Book } from '../book';
-
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { BookSearchService } from './book-search.service';
 

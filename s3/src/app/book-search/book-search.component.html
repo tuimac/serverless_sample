@@ -1,10 +1,10 @@
 <label>
   Book Name:
   <div>
-    <form class="k-form" [formGroup]="searchBooksForm" (ngSubmit)="searchBooks(searchBooksForm.value)">
-      <input id="bookname" type="text" formControlName="bookname" placeholder="Enter Book name..." >
-      <button class="k-button" type="submit">Search</button>
+    <form [formGroup]="searchBooksForm" class="searchBooksForm">
+      <input id="bookname" type="text" name="bookname" placeholder="Enter Book name..." >
     </form>
+    <input type="button" id="search" value="Search" (click)="searchBooks($event)">
   </div>
   <ng-container>
     <p>Search Result</p>>
