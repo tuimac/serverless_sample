@@ -1,19 +1,19 @@
 <label>
   Book Name:
   <div>
-    <form [formGroup]="searchBooksForm" class="searchBooksForm">
-      <input id="bookname" type="text" name="bookname" placeholder="Enter Book name..." >
+    <form [formGroup]="searchBooksForm" (ngSubmit)="searchBooks(searchBooksForm.value)" class="k-submit" method="GET">
+      <input type="text" name="bookname" placeholder="Enter Book name..." class="k-textbox">
+      <button class="k-button" type="submit">Search</button>
     </form>
-    <input type="button" id="search" value="Search" (click)="searchBooks($event)">
   </div>
   <ng-container>
-    <p>Search Result</p>>
+    <p>Search Result</p>
     <ul>
       <li *ngFor="let book of bookList$">
         {{book.id}}
         {{book.name}}
         {{book.pages}}
       </li>
-    </ul>>
+    </ul>
   </ng-container>
 </label>
