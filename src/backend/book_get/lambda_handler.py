@@ -32,6 +32,7 @@ def lambda_handler(event, context):
             for row in rows:
                 response['data'].append(row)
         conn.commit()
+        logger.info(response)
         return response
     except Exception as e:
         logger.error("ERROR: Unexpected error: SQL Execution error.")

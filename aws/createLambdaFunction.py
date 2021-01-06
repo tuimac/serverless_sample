@@ -19,14 +19,36 @@ def zipSrcDir(path, filename):
     except Exception as e:
         raise e
 
-def createFunction(client, iamRole, zipFile):
+def createConfig(subnet, securitygroup, iamrole):
     try:
+        config = {}
+        client = boto3.client('ec2')
+        config['subnetId'] = client.describe_subnets(
+            Filters = [{'Name': 'tag:Name', 'Values': [subnet]}]
+        )['Subnets'][0]['SubnetId']
+        config['sgId'] = client.describe_security_groups(
+            Filters = [{'Name': 'group-name', 'Values': [securitygroup]}]
+        )['SecurityGroups'][0]['GroupId']
+
+        resource = boto3.resource('iam')
+        config['iamroleArn'] = resource.Role(iamrole).arn
+        return config
+    except Exception as e:
+        raise e
+
+def createFunction(config, zipFile):
+    try:
+        client = boto3.client('lambda')
         response = client.create_function(
             FunctionName = 'booksearch',
             Runtime = 'python3.8',
-            Role = iamRole,
-            Handler = 'lambda_handler',
-            Code = { 'ZipFile': open(zipFile, 'rb').read() }
+            Role = config['iamroleArn'],
+            Handler = 'lambda_handler.lambda_handler',
+            Code = { 'ZipFile': open(zipFile, 'rb').read() },
+            VpcConfig = {
+                'SubnetIds': [config['subnetId']],
+                'SecurityGroupIds': [config['sgId']]
+            }
         )
         print(response['FunctionArn'])
     except Exception as e:
@@ -35,16 +57,14 @@ def createFunction(client, iamRole, zipFile):
 if __name__ == '__main__':
     srcdir = '../src/backend/book_get/'
     zipFileName = 'src.zip'
-
-    if len(sys.argv) != 2:
-        print('usage: ./createLambdaFunction.py <IAM role ARN>')
-        sys.exit(1)
-    iamRoleArn = sys.argv[1]
+    subnet = 'VPN-Subnet-Private-01-a'
+    securitygroup = 'default'
+    iamrole = 'LambdaOnVPC'
 
     try:
-        client = boto3.client('lambda')
+        config = createConfig(subnet, securitygroup, iamrole)
         zipSrcDir(srcdir, zipFileName)
-        createFunction(client, iamRoleArn, zipFileName)
+        createFunction(config, zipFileName)
     except:
         traceback.print_exc()
     finally:
