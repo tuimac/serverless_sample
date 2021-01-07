@@ -1,8 +1,8 @@
 import sys
 import json
 import logging
-import config
 import pymysql
+import config
 import traceback
 
 logger = logging.getLogger()
@@ -40,3 +40,4 @@ def lambda_handler(event, context):
     finally:
         conn.close()
         logger.info("SUCCESS: Closing connection to MySQL succeeded.")
+
