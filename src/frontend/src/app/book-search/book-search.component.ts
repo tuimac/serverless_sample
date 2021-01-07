@@ -11,21 +11,12 @@ import { BookSearchService } from './book-search.service';
 })
 export class BookSearchComponent {
   books: any;
-  searchBooksForm: any;
-  readonly bookList$;
 
-  constructor(
-    private bookSearchService: BookSearchService,
-    private formBuilder: FormBuilder
-  ) {
-    this.searchBooksForm = this.formBuilder.group({
-      bookName: ''
-    });
-  }
+  constructor(private bookSearchService: BookSearchService) { }
 
-  ngOnInit() { }
+  ngOnInit() {}
 
-  searchBooks(bookName) {
+  searchBooks(bookName: string) {
     this.books = this.bookSearchService.searchBooks(bookName);
     console.log(this.books);
   }
