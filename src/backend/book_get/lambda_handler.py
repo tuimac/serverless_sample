@@ -11,9 +11,9 @@ response = {}
 
 try:
     conn = pymysql.connect(
-		config.DB_HOST,
-		user = config.DB_USER,
-		passwd = config.DB_PASSWORD,
+        config.DB_HOST,
+        user = config.DB_USER,
+        passwd = config.DB_PASSWORD,
         db = config.DB_NAME,
         connect_timeout = 10
     )
