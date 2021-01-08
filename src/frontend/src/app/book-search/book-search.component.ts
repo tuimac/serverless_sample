@@ -17,7 +17,7 @@ export class BookSearchComponent {
   ngOnInit() {}
 
   searchBooks(bookName: string) {
-    this.books = this.bookSearchService.searchBooks(bookName);
+    this.books = this.bookSearchService.searchBooks(bookName).subscribe();
     console.log(this.books);
   }
 }

@@ -20,13 +20,11 @@ export class BookSearchService {
   constructor(private http: HttpClient) { }
 
   searchBooks(bookname): Observable<any>{
-    console.log(bookname);
     return this.http.get<Book[]>(
-      `${this.baseurl}/?name=${bookname}`
+      `${this.baseurl}?name=${bookname}`
     ).pipe(
       tap(data => console.log(data)),
       catchError(error => {
-        console.log('error')
         return throwError('Book not found');
       })
     );

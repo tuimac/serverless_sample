@@ -1,8 +1,8 @@
 import sys
 import json
 import logging
-import pymysql
 import config
+import pymysql
 import traceback
 
 logger = logging.getLogger()
@@ -11,9 +11,9 @@ response = {}
 
 try:
     conn = pymysql.connect(
-        config.DB_HOST,
-        user = config.DB_USER,
-        passwd = config.DB_PASSWORD,
+		config.DB_HOST,
+		user = config.DB_USER,
+		passwd = config.DB_PASSWORD,
         db = config.DB_NAME,
         connect_timeout = 10
     )
@@ -28,16 +28,27 @@ def lambda_handler(event, context):
         with conn.cursor() as cur:
             cur.execute('SELECT * FROM ITEM')
             rows = cur.fetchall()
-            response['data'] = []
+            result = {}
             for row in rows:
-                response['data'].append(row)
+                book = {}
+                book['name'] = row[1]
+                book['pages'] = row[2]
+                book['author'] = row[3]
+                result[row[0]] = book
         conn.commit()
-        logger.info(response)
-        return response
+        logger.info(result)
+        response['statusCode'] = 200
+        result['event'] = event
+        return {
+            'statusCode': 200,
+            'headers': {
+                "Access-Control-Allow-Origin": "*"             
+            },
+            'body': json.dumps(result)
+        }
     except Exception as e:
         logger.error("ERROR: Unexpected error: SQL Execution error.")
         logger.error(e)
     finally:
-        conn.close()
+        #conn.close()
         logger.info("SUCCESS: Closing connection to MySQL succeeded.")
-
