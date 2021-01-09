@@ -25,29 +25,27 @@ logger.info("SUCCESS: Connection to MySQL succeeded.")
 def lambda_handler(event, context):
     try:
         name = event['name']
-        body = {}
+        booklist = []
         with conn.cursor() as cur:
             if name == '':
                 cur.execute('SELECT * FROM ITEM')
             else:
                 cur.execute('SELECT * FROM ITEM WHERE NAME=%s', (name))
             rows = cur.fetchall()
-            booklist = []
             for row in rows:
                 book = {}
                 book['name'] = row[1]
                 book['pages'] = row[2]
                 book['author'] = row[3]
                 booklist.append(book)
-            body['result'] = booklist
         conn.commit()
-        logger.info(body)
+        logger.info(booklist)
         return {
             'statusCode': 200,
             'headers': {
                 "Access-Control-Allow-Origin": "*"             
             },
-            'body': json.dumps(body)
+            'body': booklist
         }
     except Exception as e:
         logger.error("ERROR: Unexpected error: SQL Execution error.")
