@@ -5,4 +5,11 @@
   <button (click)="searchBooks(bookName.value); bookName.value=''" class="k-button">
     Search
   </button>
+  <ul class="search-result">
+    <li *ngFor="let book of booklist$ | async">
+      {{book.name}}
+      {{book.pages}}
+      {{book.author}}
+    </li>
+  </ul>
 </div>

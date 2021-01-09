@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { Book } from '../book';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 import { BookSearchService } from './book-search.service';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'book-search',
@@ -10,14 +11,21 @@ import { BookSearchService } from './book-search.service';
   styleUrls: ['./book-search.component.scss']
 })
 export class BookSearchComponent {
-  books: any;
+
+  booklist$: Observable<Book[]>;
+  private searchBookObserver = new Subject<string>();
 
   constructor(private bookSearchService: BookSearchService) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.booklist$ = this.searchBookObserver.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      switchMap((bookname: string) => this.bookSearchService.searchBooks(bookname))
+    );
+  }
 
   searchBooks(bookName: string) {
-    this.books = this.bookSearchService.searchBooks(bookName).subscribe();
-    console.log(this.books);
+    this.searchBookObserver.next(bookName);
   }
 }
