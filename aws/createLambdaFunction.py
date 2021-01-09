@@ -43,7 +43,7 @@ def createFunction(config, zipFile):
             FunctionName = 'booksearch',
             Runtime = 'python3.8',
             Role = config['iamroleArn'],
-            Handler = 'lambda_handler.lambda_handler',
+            Handler = 'lambda_function.lambda_handler',
             Code = { 'ZipFile': open(zipFile, 'rb').read() },
             VpcConfig = {
                 'SubnetIds': [config['subnetId']],

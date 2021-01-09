@@ -1,7 +1,0 @@
-{
-    "/book/*": {
-        "target": "https://6azxwxnav1.execute-api.ap-northeast-1.amazonaws.com/test",
-        "secure": false,
-        "logLevel": "debug"
-    }
-}

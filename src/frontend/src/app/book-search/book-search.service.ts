@@ -21,7 +21,7 @@ export class BookSearchService {
 
   searchBooks(bookname): Observable<any>{
     return this.http.get<Book[]>(
-      `${this.baseurl}?name=${bookname}`
+      `${this.baseurl}/book?name=${bookname}`
     ).pipe(
       tap(data => console.log(data)),
       catchError(error => {
